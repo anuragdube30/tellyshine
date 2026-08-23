@@ -1,0 +1,1 @@
+@echo off\nsetlocal\npowershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0setup-local-db.ps1"\nif errorlevel 1 pause\n

@@ -1,0 +1,34 @@
+TELLY SHINE - READY TO RUN (WINDOWS, SQLITE)
+=============================================
+
+Docker/PostgreSQL is NOT required. The project now uses a local SQLite database.
+
+1) Install Node.js 18+ if you do not already have it.
+
+2) Open PowerShell in this project folder.
+
+3) Install dependencies:
+   npm install
+
+4) Prepare the local database and admin account:
+   npm run setup
+
+   Or double-click setup-local-db.cmd.
+
+5) Start the site:
+   npm run dev
+
+6) Open:
+   http://localhost:3000
+   http://localhost:3000/admin/login
+
+ADMIN LOGIN
+-----------
+Email:    admin@tellyshine.com
+Password: TellyShine@123
+
+If the admin password ever becomes invalid:
+   npm run db:reset-admin
+
+The SQLite database file is: prisma/dev.db
+Cloudinary is optional. The site works without it; image upload needs Cloudinary credentials.
