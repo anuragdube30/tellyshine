@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { getCategories } from "@/lib/data";
 import { NewsCard } from "@/components/shared/news-card";
@@ -15,7 +16,9 @@ export default async function EntertainmentPage({
   const categories = await getCategories();
   const activeSlug = searchParams.category;
 
-  let news: Awaited<ReturnType<typeof prisma.news.findMany>> = [];
+  let news: Prisma.NewsGetPayload<{
+  include: { category: true };
+      }>[] = [];
   try {
     news = await prisma.news.findMany({
       where: {

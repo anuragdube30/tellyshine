@@ -1,33 +1,77 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { NewsForm } from "@/components/admin/news-form";
+import { SerialForm } from "@/components/admin/serial-form";
+import { parseCast } from "@/lib/utils";
 
-export const metadata = { title: "Edit Article" };
+export const metadata = {
+  title: "Edit Serial",
+};
 
-export default async function EditNewsPage({ params }: { params: { id: string } }) {
-  const [news, categories] = await Promise.all([
-    prisma.news.findUnique({ where: { id: params.id }, include: { tags: true } }),
-    prisma.category.findMany({ orderBy: { name: "asc" } }),
+function parseStatus(
+  status: string
+): "ONGOING" | "UPCOMING" | "ENDED" {
+  if (status === "ONGOING") {
+    return "ONGOING";
+  }
+
+  if (status === "UPCOMING") {
+    return "UPCOMING";
+  }
+
+  if (status === "ENDED") {
+    return "ENDED";
+  }
+
+  return "ONGOING";
+}
+
+export default async function EditSerialPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const [serial, categories] = await Promise.all([
+    prisma.serial.findUnique({
+      where: {
+        id: params.id,
+      },
+    }),
+
+    prisma.category.findMany({
+      orderBy: {
+        name: "asc",
+      },
+    }),
   ]);
-  if (!news) notFound();
+
+  if (!serial) {
+    notFound();
+  }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Edit Article</h1>
-      <NewsForm
+      <h1 className="text-2xl font-bold mb-6">
+        Edit Serial
+      </h1>
+
+      <SerialForm
         categories={categories}
-        newsId={news.id}
+        serialId={serial.id}
         initialData={{
-          title: news.title,
-          excerpt: news.excerpt,
-          content: news.content,
-          featuredImage: news.featuredImage,
-          categoryId: news.categoryId,
-          status: news.status,
-          scheduledFor: news.scheduledFor?.toISOString().slice(0, 16) || null,
-          seoTitle: news.seoTitle,
-          seoDescription: news.seoDescription,
-          tagNames: news.tags.map((t) => t.name),
+          name: serial.name,
+          poster: serial.poster,
+          banner: serial.banner,
+          description: serial.description,
+          channel: serial.channel,
+          genre: serial.genre,
+          cast: parseCast(serial.cast),
+          status: parseStatus(serial.status),
+          startDate:
+            serial.startDate?.toISOString().slice(0, 10) || null,
+          latestEpisode: serial.latestEpisode,
+          upcomingEpisode: serial.upcomingEpisode,
+          categoryId: serial.categoryId,
+          featured: serial.featured,
         }}
       />
     </div>

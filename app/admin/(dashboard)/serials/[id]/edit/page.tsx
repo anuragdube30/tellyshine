@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { SerialForm } from "@/components/admin/serial-form";
 import { parseCast } from "@/lib/utils";
@@ -26,7 +26,7 @@ export default async function EditSerialPage({ params }: { params: { id: string 
           channel: serial.channel,
           genre: serial.genre,
           cast: parseCast(serial.cast),
-          status: serial.status,
+          status: serial.status === "ONGOING" || serial.status === "UPCOMING" || serial.status === "ENDED" ? serial.status : "ONGOING",
           startDate: serial.startDate?.toISOString().slice(0, 10) || null,
           latestEpisode: serial.latestEpisode,
           upcomingEpisode: serial.upcomingEpisode,
@@ -37,3 +37,4 @@ export default async function EditSerialPage({ params }: { params: { id: string 
     </div>
   );
 }
+

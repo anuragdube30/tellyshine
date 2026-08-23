@@ -92,32 +92,32 @@ model News {
 // ---------- TV SERIALS ----------
 
 model Serial {
-  id             String       @id @default(cuid())
-  name           String
-  slug           String       @unique
-  poster         String
-  banner         String
-  description    String
-  channel        String
-  genre          String
-  cast           String
-  status         String       @default("ONGOING")
-  startDate      DateTime?
-  latestEpisode  String?
+  id              String       @id @default(cuid())
+  name            String
+  slug            String       @unique
+  poster          String
+  banner          String
+  description     String
+  channel         String
+  genre           String
+  cast            String
+  status          String       @default("ONGOING")
+  startDate       DateTime?
+  latestEpisode   String?
   upcomingEpisode String?
-  featured       Boolean      @default(false)
-  views          Int          @default(0)
+  featured        Boolean      @default(false)
+  views           Int          @default(0)
 
-  categoryId     String?
-  category       Category?    @relation(fields: [categoryId], references: [id])
+  categoryId      String?
+  category        Category?    @relation(fields: [categoryId], references: [id])
 
-  episodes       Episode[]
-  news           SerialOnNews[]
-  celebrities    CelebrityOnSerial[]
-  videos         Video[]
+  episodes        Episode[]
+  news            SerialOnNews[]
+  celebrities     CelebrityOnSerial[]
+  videos          Video[]
 
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 
   @@index([slug])
   @@index([status])
@@ -137,7 +137,8 @@ model Episode {
   @@index([serialId])
 }
 
-// Join table: News <-> Serial (related news on serial page)
+// ---------- JOIN TABLE: NEWS <-> SERIAL ----------
+
 model SerialOnNews {
   serialId String
   newsId   String
@@ -181,7 +182,7 @@ model Celebrity {
   coverImage   String?
   biography    String
   profession   String
-  socialLinks  String?   // JSON string: { instagram, twitter, facebook }
+  socialLinks  String?
   featured     Boolean  @default(false)
 
   news         CelebrityOnNews[]
@@ -243,7 +244,7 @@ model Media {
   id        String   @id @default(cuid())
   url       String
   publicId  String?
-  type      String   // image | video
+  type      String
   alt       String?
   createdAt DateTime @default(now())
 }
