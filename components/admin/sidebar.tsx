@@ -13,6 +13,7 @@ import {
   Mail,
   Image as ImageIcon,
   Settings,
+  ShieldCheck,
   Sparkle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -29,6 +30,7 @@ const LINKS = [
   { href: "/admin/subscribers", label: "Subscribers", icon: Mail },
   { href: "/admin/media", label: "Media", icon: ImageIcon },
   { href: "/admin/settings", label: "Settings", icon: Settings },
+  { href: "/admin/security", label: "Security", icon: ShieldCheck },
 ];
 
 export function AdminSidebar({ className }: { className?: string }) {
