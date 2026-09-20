@@ -3,7 +3,12 @@ import { prisma } from "@/lib/prisma";
 import { contactSchema } from "@/lib/validations";
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
   const parsed = contactSchema.safeParse(body);
 
   if (!parsed.success) {
@@ -13,6 +18,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const message = await prisma.message.create({ data: parsed.data });
-  return NextResponse.json({ success: true, id: message.id }, { status: 201 });
+  try {
+    const message = await prisma.message.create({ data: parsed.data });
+    return NextResponse.json({ success: true, id: message.id }, { status: 201 });
+  } catch {
+    return NextResponse.json({ error: "Unable to send message" }, { status: 500 });
+  }
 }

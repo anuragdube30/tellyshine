@@ -8,7 +8,7 @@ export default function TermsPage() {
         By accessing Telly Shine, you agree to use the site for lawful, personal, non-commercial
         purposes. Content on this site — articles, images, and videos — is owned by Telly Shine or
         its respective rights holders and may not be reproduced without permission. Embedded videos
-        are hosted on third-party platforms (such as YouTube) and are subject to those platforms'
+        are hosted on third-party platforms (such as YouTube) and are subject to those platforms&apos;
         own terms. Telly Shine reserves the right to update these terms at any time.
       </p>
     </div>

@@ -7,7 +7,7 @@ export default function NotFound() {
       <p className="font-display text-8xl font-bold text-gradient-gold">404</p>
       <h1 className="mt-4 text-2xl font-bold">This page went off-air</h1>
       <p className="mt-2 text-muted-foreground max-w-md">
-        The page you're looking for doesn't exist or may have been moved. Let's get you back to the good stuff.
+        The page you&apos;re looking for doesn&apos;t exist or may have been moved. Let&apos;s get you back to the good stuff.
       </p>
       <div className="flex gap-3 mt-8">
         <Link href="/" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:scale-105 transition-transform">

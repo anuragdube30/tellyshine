@@ -4,7 +4,12 @@ const bcrypt = require("bcryptjs");
 const prisma = new PrismaClient();
 
 const email = (process.env.ADMIN_EMAIL || "admin@tellyshine.com").trim().toLowerCase();
-const password = process.env.ADMIN_PASSWORD || "TellyShine@123";
+const password = process.env.ADMIN_PASSWORD;
+
+if (!password || password.length < 12) {
+  console.error("Set ADMIN_PASSWORD to a strong password with at least 12 characters.");
+  process.exit(1);
+}
 const name = process.env.ADMIN_NAME || "Telly Shine Desk";
 
 async function main() {
@@ -27,7 +32,7 @@ async function main() {
 
   console.log("\nAdmin account is ready.");
   console.log(`Email: ${user.email}`);
-  console.log(`Password: ${password}`);
+  console.log("Admin password securely updated.");
   console.log(`Role: ${user.role}\n`);
 }
 

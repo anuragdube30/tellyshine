@@ -19,9 +19,14 @@ async function main() {
   console.log("Seeding Telly Shine demo data…");
 
   // ---------- Admin user ----------
-  const passwordHash = await bcrypt.hash("TellyShine@123", 10);
+  const adminEmail = (process.env.ADMIN_EMAIL || "admin@tellyshine.com").trim().toLowerCase();
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword) {
+    throw new Error("ADMIN_PASSWORD is required before seeding the database.");
+  }
+  const passwordHash = await bcrypt.hash(adminPassword, 12);
   const admin = await prisma.user.upsert({
-    where: { email: "admin@tellyshine.com" },
+    where: { email: adminEmail },
     update: {
       name: "Telly Shine Desk",
       passwordHash,
@@ -29,7 +34,7 @@ async function main() {
     },
     create: {
       name: "Telly Shine Desk",
-      email: "admin@tellyshine.com",
+      email: adminEmail,
       passwordHash,
       role: "SUPER_ADMIN",
     },
@@ -293,7 +298,7 @@ async function main() {
   }
 
   console.log("✅ Seed complete.");
-  console.log("   Admin login: admin@tellyshine.com / TellyShine@123");
+  console.log(`   Admin account ready: ${adminEmail}`);
 }
 
 main()

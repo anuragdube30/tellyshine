@@ -75,6 +75,10 @@ export const contactSchema = z.object({
   message: z.string().min(10, "Message must be at least 10 characters").max(2000),
 });
 
+export const newsletterSchema = z.object({
+  email: z.string().trim().toLowerCase().email("Enter a valid email"),
+});
+
 export const settingsSchema = z.object({
   siteName: z.string().min(2),
   logoUrl: z.string().optional().nullable(),

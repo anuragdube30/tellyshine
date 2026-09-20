@@ -4,6 +4,7 @@ import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import { Logo } from "./logo";
 import { getSiteSettings } from "@/lib/settings";
 import { prisma } from "@/lib/prisma";
+import { NewsletterForm } from "@/components/shared/newsletter-form";
 
 export async function Footer() {
   const settings = await getSiteSettings();
@@ -22,7 +23,7 @@ export async function Footer() {
 
   return (
     <footer className="border-t border-border bg-surface mt-20">
-      <div className="container py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="container py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
         <div>
           <Logo />
           <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xs">
@@ -56,6 +57,12 @@ export async function Footer() {
             { href: "/contact", label: "Contact" },
           ]}
         />
+
+        <div id="newsletter" className="scroll-mt-24">
+          <h4 className="font-semibold text-sm mb-2">Newsletter</h4>
+          <p className="text-sm text-muted-foreground mb-4">Get important TV and entertainment updates in your inbox.</p>
+          <NewsletterForm />
+        </div>
 
         <FooterCol
           title="Categories"

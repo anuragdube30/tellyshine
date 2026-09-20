@@ -26,6 +26,7 @@ const LINKS = [
   { href: "/admin/categories", label: "Categories", icon: FolderTree },
   { href: "/admin/breaking-news", label: "Breaking News", icon: Radio },
   { href: "/admin/messages", label: "Messages", icon: Mail },
+  { href: "/admin/subscribers", label: "Subscribers", icon: Mail },
   { href: "/admin/media", label: "Media", icon: ImageIcon },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];

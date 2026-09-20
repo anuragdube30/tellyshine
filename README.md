@@ -51,11 +51,7 @@ Open:
 
 ## Admin login
 
-**Email:** `admin@tellyshine.com`
-
-**Password:** `TellyShine@123`
-
-If the password ever stops working, run:
+Set `ADMIN_EMAIL` and a strong `ADMIN_PASSWORD` (12+ characters) in `.env`, then run:
 
 ```powershell
 npm run db:reset-admin
