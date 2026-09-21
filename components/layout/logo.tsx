@@ -5,12 +5,17 @@ export function Logo({ className = "" }: { className?: string }) {
   return (
     <Link
       href="/"
-      className={`flex items-center gap-1.5 shrink-0 group ${className}`}
-      aria-label="Telly Shine home"
+      className={`inline-flex items-center gap-2 shrink-0 group ${className}`}
+      aria-label="Telly Shine Entertainment home"
     >
-      <Sparkle className="h-5 w-5 text-primary transition-transform group-hover:rotate-12" />
-      <span className="font-display text-xl md:text-2xl font-bold tracking-tight">
-        Telly<span className="text-gradient-gold">Shine</span>
+      <Sparkle className="h-5 w-5 shrink-0 text-primary transition-transform group-hover:rotate-12" />
+      <span className="flex flex-col">
+        <span className="font-display text-xl md:text-2xl font-bold tracking-tight leading-tight">
+          Telly <span className="text-gradient-gold">Shine</span>
+        </span>
+        <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.18em] leading-tight text-primary">
+          Entertainment
+        </span>
       </span>
     </Link>
   );
