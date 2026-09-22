@@ -6,11 +6,10 @@ export default withAuth(
     return NextResponse.next();
   },
   {
+    secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
     callbacks: {
       authorized: ({ token, req }) => {
-        // Always allow the login page itself.
         if (req.nextUrl.pathname.startsWith("/admin/login")) return true;
-        // Everything else under /admin requires a valid admin/editor session.
         return !!token;
       },
     },
