@@ -40,7 +40,7 @@ export const authOptions: AuthOptions = {
         const user = await prisma.user.findUnique({
           where: { email: credentials.email.toLowerCase().trim() },
         });
-        if (!user) return null;
+        if (!user || !["SUPER_ADMIN", "ADMIN", "EDITOR"].includes(user.role)) return null;
 
         const valid = await bcrypt.compare(credentials.password, user.passwordHash);
         if (!valid) return null;
@@ -71,5 +71,5 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
-  secret: process.env.AUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
 };

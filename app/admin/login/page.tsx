@@ -18,23 +18,49 @@ function AdminLoginForm() {
     e.preventDefault();
     setLoading(true);
 
-    const res = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const res = await signIn("credentials", {
+        email: email.trim().toLowerCase(),
+        password,
+        redirect: false,
+        callbackUrl: "/admin",
+      });
 
-    setLoading(false);
+      if (!res?.ok || res.error) {
+        toast.error(
+          res?.error === "CredentialsSignin"
+            ? "Invalid email or password"
+            : "Unable to sign in. Please try again or contact the site administrator."
+        );
+        return;
+      }
 
-    if (res?.error) {
-      toast.error("Invalid email or password");
-      return;
+      // Only allow redirects back into this site's admin dashboard.
+      let destination = "/admin";
+      const requested = params.get("callbackUrl");
+      if (requested) {
+        try {
+          const url = new URL(requested, window.location.origin);
+          if (
+            url.origin === window.location.origin &&
+            (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) &&
+            url.pathname !== "/admin/login"
+          ) {
+            destination = url.pathname + url.search;
+          }
+        } catch {
+          // Invalid callback URLs fall back to the dashboard.
+        }
+      }
+
+      toast.success("Welcome back!");
+      router.replace(destination);
+      router.refresh();
+    } catch {
+      toast.error("Unable to reach the sign-in service. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    toast.success("Welcome back!");
-
-    router.push(params.get("callbackUrl") || "/admin");
-    router.refresh();
   }
 
   return (
@@ -59,11 +85,13 @@ function AdminLoginForm() {
 
           <form onSubmit={onSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1.5">
+              <label htmlFor="admin-email" className="block text-sm font-medium mb-1.5">
                 Email
               </label>
 
               <input
+                id="admin-email"
+                autoComplete="username"
                 type="email"
                 required
                 value={email}
@@ -74,11 +102,13 @@ function AdminLoginForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1.5">
+              <label htmlFor="admin-password" className="block text-sm font-medium mb-1.5">
                 Password
               </label>
 
               <input
+                id="admin-password"
+                autoComplete="current-password"
                 type="password"
                 required
                 value={password}
@@ -103,7 +133,7 @@ function AdminLoginForm() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
-          Protected area. Unauthorized access attempts are logged.
+          Protected area. Authorized editors and administrators only.
         </p>
       </div>
     </div>
