@@ -89,7 +89,18 @@ export async function Footer() {
             {settings?.footerText ||
               `© ${new Date().getFullYear()} Telly Shine. All rights reserved.`}
           </p>
-          <p>Made for entertainment fans, by Telly Shine.</p>
+          <p>
+            Developed by{" "}
+            <a
+              href="https://wa.me/918369020464?text=Hi%20Anurag%2C%20I%20saw%20your%20work%20on%20Telly%20Shine%20Entertainment.%20I%20want%20a%20professional%20website%20for%20my%20business.%20Could%20you%20please%20share%20your%20services%2C%20pricing%20and%20project%20details%3F"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold tracking-wide transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+              aria-label="Contact Anurag Dubey on WhatsApp about website development (opens in a new tab)"
+            >
+              ANURAG DUBEY
+            </a>
+          </p>
         </div>
       </div>
     </footer>
