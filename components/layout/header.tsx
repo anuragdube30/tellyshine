@@ -107,7 +107,7 @@ export function Header() {
             <ThemeToggle />
 
             <Link
-              href="/#newsletter"
+              href="/admin"
               className="hidden lg:inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105"
             >
               Subscribe
@@ -146,7 +146,7 @@ export function Header() {
               </Link>
             ))}
             <Link
-              href="/#newsletter"
+              href="/admin"
               className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground"
             >
               Subscribe
